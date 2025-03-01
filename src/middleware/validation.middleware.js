@@ -36,6 +36,14 @@ const userSchema = {
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
+
+  update: Joi.object({
+    name: Joi.string().min(3).max(50),
+    email: Joi.string().email(),
+    phone: Joi.string().pattern(/^\+?[\d\s-]+$/),
+    role: Joi.string().valid("admin", "librarian", "member"),
+    isActive: Joi.boolean(),
+  }),
 };
 
 // Book validation schemas
