@@ -125,10 +125,6 @@ A RESTful API for a Library Management System built with Node.js, Express, and M
    - Can borrow/return books
    - Can view own borrowing history
 
-## License
-
-MIT
-
 ## Author
 
-[Your Name]
+Akash Sharma
