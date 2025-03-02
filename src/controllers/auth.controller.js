@@ -36,11 +36,13 @@ const register = async (req, res) => {
       isActive: role === "member" ? false : true, // Admins and librarians are active by default
     });
 
+    console.log("Generated password:", password); // For testing purposes
     // Send welcome email with credentials
     await sendWelcomeEmail(user, password);
 
     res.status(201).json({
       status: "success",
+      // message: "User registered successfully.",
       message:
         "User registered successfully. Please check your email for credentials.",
       data: {
@@ -81,7 +83,7 @@ const login = async (req, res) => {
       });
     }
 
-    // Validate password
+    // Validate password prototype of the userSchema
     const isValidPassword = await user.validatePassword(password);
     if (!isValidPassword) {
       return res.status(401).json({
