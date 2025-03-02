@@ -1,0 +1,261 @@
+{
+  "info": {
+    "_postman_id": "your-generated-id",
+    "name": "Library Management System",
+    "description": "Complete API collection for Library Management System with Indian context",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "name": "Rajesh Kumar",
+                "email": "rajesh.kumar@gmail.com",
+                "phone": "+91-9876543210",
+                "role": "member"
+              }
+            }
+          },
+          "response": {
+            "status": "Created",
+            "code": 201,
+            "body": {
+              "status": "success",
+              "message": "User registered successfully. Please check your email for credentials.",
+              "data": {
+                "id": 1,
+                "name": "Rajesh Kumar",
+                "email": "rajesh.kumar@gmail.com",
+                "role": "member",
+                "isActive": false
+              }
+            }
+          }
+        },
+        {
+          "name": "Register Librarian",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "name": "Priya Sharma",
+                "email": "priya.sharma@library.com",
+                "phone": "+91-9876543211",
+                "role": "librarian"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Books Management",
+      "item": [
+        {
+          "name": "Get All Books",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/books",
+            "query": [
+              {
+                "key": "search",
+                "value": "wings of fire",
+                "description": "Search in title, author, or ISBN"
+              },
+              {
+                "key": "category",
+                "value": "autobiography"
+              }
+            ]
+          },
+          "response": {
+            "status": "OK",
+            "code": 200,
+            "body": {
+              "status": "success",
+              "data": [
+                {
+                  "id": 1,
+                  "title": "Wings of Fire",
+                  "author": "A.P.J. Abdul Kalam",
+                  "isbn": "978-8173711466",
+                  "quantity": 5,
+                  "availableQuantity": 3,
+                  "category": "autobiography",
+                  "description": "Autobiography of former President of India",
+                  "publishedYear": 1999,
+                  "location": "Section A, Shelf 1"
+                },
+                {
+                  "id": 2,
+                  "title": "The Guide",
+                  "author": "R.K. Narayan",
+                  "isbn": "978-0143039648",
+                  "quantity": 3,
+                  "availableQuantity": 2,
+                  "category": "fiction",
+                  "description": "Story of a tour guide who transforms into a spiritual guide",
+                  "publishedYear": 1958,
+                  "location": "Section B, Shelf 2"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Book (Admin)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/books",
+            "headers": {
+              "Authorization": "Bearer {{admin_token}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "title": "Half Girlfriend",
+                "author": "Chetan Bhagat",
+                "isbn": "978-8129135728",
+                "quantity": 5,
+                "category": "fiction",
+                "description": "A story about a Bihari boy and his relationship struggles",
+                "publishedYear": 2014,
+                "location": "Section C, Shelf 3"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Borrowing Operations",
+      "item": [
+        {
+          "name": "Borrow Book (Member)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/borrow/borrow",
+            "headers": {
+              "Authorization": "Bearer {{member_token}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "bookId": 1,
+                "dueDate": "2024-03-28T00:00:00.000Z"
+              }
+            }
+          },
+          "response": {
+            "status": "Created",
+            "code": 201,
+            "body": {
+              "status": "success",
+              "message": "Book borrowed successfully",
+              "data": {
+                "id": 1,
+                "bookId": 1,
+                "userId": 1,
+                "borrowDate": "2024-02-28T00:00:00.000Z",
+                "dueDate": "2024-03-28T00:00:00.000Z",
+                "status": "borrowed",
+                "bookDetails": {
+                  "title": "Wings of Fire",
+                  "author": "A.P.J. Abdul Kalam"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. User Management",
+      "item": [
+        {
+          "name": "Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/users",
+            "headers": {
+              "Authorization": "Bearer {{admin_token}}"
+            }
+          },
+          "response": {
+            "status": "OK",
+            "code": 200,
+            "body": {
+              "status": "success",
+              "data": [
+                {
+                  "id": 1,
+                  "name": "Rajesh Kumar",
+                  "email": "rajesh.kumar@gmail.com",
+                  "role": "member",
+                  "isActive": true
+                },
+                {
+                  "id": 2,
+                  "name": "Priya Sharma",
+                  "email": "priya.sharma@library.com",
+                  "role": "librarian",
+                  "isActive": true
+                },
+                {
+                  "id": 3,
+                  "name": "Amit Patel",
+                  "email": "amit.patel@gmail.com",
+                  "role": "member",
+                  "isActive": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "your_admin_token_here",
+      "type": "string"
+    },
+    {
+      "key": "member_token",
+      "value": "your_member_token_here",
+      "type": "string"
+    }
+  ]
+}
